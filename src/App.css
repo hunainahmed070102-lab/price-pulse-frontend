@@ -1,0 +1,95 @@
+/* Theme Variables */
+:root,
+body[data-theme="light"] {
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F8F9FA;
+  --bg-gradient: linear-gradient(135deg, #faf8ff 0%, #f5f0ff 50%, #ffffff 100%);
+  --text-primary: #1A1A1A;
+  --text-secondary: #666666;
+  --border-color: #EBEBEB;
+  --shadow: rgba(0, 0, 0, 0.06);
+}
+
+body[data-theme="dark"] {
+  --bg-primary: #1A1A1A;
+  --bg-secondary: #2D2D2D;
+  --bg-gradient: linear-gradient(135deg, #1A1A1A 0%, #2D2D2D 50%, #1A1A1A 100%);
+  --text-primary: #FFFFFF;
+  --text-secondary: #B0B0B0;
+  --border-color: #404040;
+  --shadow: rgba(0, 0, 0, 0.3);
+}
+
+body[data-theme="blue"] {
+  --bg-primary: #E3F2FD;
+  --bg-secondary: #BBDEFB;
+  --bg-gradient: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 50%, #E3F2FD 100%);
+  --text-primary: #0D47A1;
+  --text-secondary: #1565C0;
+  --border-color: #90CAF9;
+  --shadow: rgba(33, 150, 243, 0.15);
+}
+
+body[data-theme="green"] {
+  --bg-primary: #E8F5E9;
+  --bg-secondary: #C8E6C9;
+  --bg-gradient: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 50%, #E8F5E9 100%);
+  --text-primary: #1B5E20;
+  --text-secondary: #2E7D32;
+  --border-color: #A5D6A7;
+  --shadow: rgba(76, 175, 80, 0.15);
+}
+
+.app {
+  min-height: 100vh;
+  background: var(--bg-gradient);
+  display: flex;
+  position: relative;
+}
+
+.app::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 400px;
+  background: radial-gradient(ellipse at top, rgba(107, 14, 255, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.main-content {
+  flex: 1;
+  margin-left: 280px;
+  padding: 40px;
+  animation: fadeIn 0.4s ease-out;
+  transition: margin-left 0.3s ease;
+  position: relative;
+  z-index: 1;
+  max-width: 1800px;
+  margin-right: auto;
+}
+
+/* When sidebar is collapsed */
+.sidebar.collapsed ~ .main-content {
+  margin-left: 80px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 80px;
+    padding: 24px 16px;
+  }
+}
