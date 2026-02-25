@@ -1,8 +1,5 @@
 import { useState } from 'react';
 import { Lock, Mail, Eye, EyeOff, AlertCircle, GraduationCap } from 'lucide-react';
-import axios from 'axios';
-
-const API_URL = 'http://192.168.1.101:5000/api';
 
 const Login = ({ onLogin }) => {
   const [email, setEmail] = useState('');
@@ -12,28 +9,28 @@ const Login = ({ onLogin }) => {
   const [loading, setLoading] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setError('');
     setLoading(true);
 
-    try {
-      const response = await axios.post(`${API_URL}/auth/login`, {
-        email,
-        password
-      });
+    // Hardcoded credentials - NO DATABASE
+    const ADMIN_EMAIL = 'admin@kotli.gov.pk';
+    const ADMIN_PASSWORD = 'admin@123';
 
-      if (response.data.success) {
-        // Store token securely
-        localStorage.setItem('adminToken', response.data.data.token);
-        localStorage.setItem('adminEmail', response.data.data.admin.email);
+    // Simulate loading delay
+    setTimeout(() => {
+      if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+        // Correct credentials - open dashboard
+        localStorage.setItem('adminToken', 'hardcoded-admin-token');
+        localStorage.setItem('adminEmail', email);
         onLogin();
+      } else {
+        // Wrong credentials - show error
+        setError('Invalid email or password');
       }
-    } catch (err) {
-      setError(err.response?.data?.error || 'Invalid email or password');
-    } finally {
       setLoading(false);
-    }
+    }, 500);
   };
 
   const styles = {

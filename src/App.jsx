@@ -5,7 +5,6 @@ import ProductList from './components/ProductList';
 import ProductForm from './components/ProductForm';
 import ComplaintsSection from './components/ComplaintsSection';
 import Analytics from './components/Analytics';
-import Settings from './components/Settings';
 import Login from './components/Login';
 import './App.css';
 
@@ -15,24 +14,12 @@ function App() {
   const [showProductForm, setShowProductForm] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
-  const [theme, setTheme] = useState('light');
 
-  // Check authentication and load theme on mount
+  // No auto-authentication - always show login first
   useEffect(() => {
-    const token = localStorage.getItem('adminToken');
-    if (token) {
-      setIsAuthenticated(true);
-    }
-    
-    const savedTheme = localStorage.getItem('adminTheme') || 'light';
-    setTheme(savedTheme);
-    document.body.setAttribute('data-theme', savedTheme);
+    // Removed auto-authentication check
+    // User must login every time
   }, []);
-
-  // Update theme
-  useEffect(() => {
-    document.body.setAttribute('data-theme', theme);
-  }, [theme]);
 
   const handleLogin = () => {
     setIsAuthenticated(true);
@@ -89,10 +76,6 @@ function App() {
         )}
         
         {activeTab === 'analytics' && <Analytics />}
-        
-        {activeTab === 'settings' && (
-          <Settings theme={theme} setTheme={setTheme} />
-        )}
       </main>
 
       {showProductForm && (
